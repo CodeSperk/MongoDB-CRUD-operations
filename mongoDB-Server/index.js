@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const port = process.env.PORT || 5000;
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 
 //middleware
@@ -36,10 +36,24 @@ async function run() {
       const result = await userCollection.insertOne(newUser);
       res.send(result);
     });
-
     app.get("/users", async(req, res) => {
       const cursor = userCollection.find();
       const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    app.get("/users/:id", async(req, res) => {
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)}
+      const result = await userCollection.findOne(query);
+      res.send(result);
+    })
+
+    app.delete("/users/:id", async(req, res) => {
+      const id = req.params.id;
+      // console.log("delete", id);
+      const query = {_id: new ObjectId(id)}
+      const result = await userCollection.deleteOne(query);
       res.send(result);
     });
 
