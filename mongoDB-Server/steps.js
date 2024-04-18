@@ -7,7 +7,6 @@
     --> node_modules in the .gitignore file
  */
 
-
 /**
  * MongoDB Connection: (MongoDB Basic project at : ahsanugps@gmail.com )
     --> Create a database user & save user name and password
